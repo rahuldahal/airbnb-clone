@@ -1,15 +1,19 @@
-import dotenv from 'dotenv';
-import express from 'express';
+import express, { Request, Response } from 'express';
+import userRouter from './routers/user';
 import { StatusCodes } from 'http-status-codes';
 
-dotenv.config(); // use .env variables
 const app = express(); // initialize the express 'app'
 
-// basic get route
-app.get('/', (req, res) => {
-  res.status(StatusCodes.OK);
+app.use(express.json());
+
+// routers setup
+app.use('/user', userRouter);
+
+// 404 route
+app.use((req: Request, res: Response) => {
+  res.status(StatusCodes.NOT_FOUND);
   res.json({
-    message: 'Sample Get request!',
+    message: 'Route not found!',
   });
 });
 
