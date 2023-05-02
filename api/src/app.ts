@@ -13,6 +13,4 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`The serve is listening at port: ${process.env.PORT}`);
-});
+export default app;
