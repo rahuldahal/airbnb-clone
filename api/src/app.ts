@@ -2,6 +2,7 @@ import userRouter from './routers/user';
 import cookieParser from 'cookie-parser';
 import placeRouter from './routers/place';
 import uploadRouter from './routers/upload';
+import bookingRouter from './routers/booking';
 import { StatusCodes } from 'http-status-codes';
 import express, { Request, Response } from 'express';
 
@@ -13,6 +14,7 @@ app.use(cookieParser());
 // routers setup
 app.use('/user', userRouter);
 app.use('/place', placeRouter);
+app.use('/booking', bookingRouter);
 app.use('/upload', uploadRouter);
 
 // 404 route
