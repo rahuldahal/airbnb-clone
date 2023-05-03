@@ -2,6 +2,8 @@ import UserModel from '../models/User';
 import { Request, Response } from 'express';
 import { createUser } from '../services/user';
 import { StatusCodes } from 'http-status-codes';
+import { signAccessToken, Payload } from '../utils/jwt';
+import { ONE_DAY } from '../constants/date';
 
 export async function signUpHandler(req: Request, res: Response) {
   const { name, email, password } = req.body;
@@ -16,9 +18,25 @@ export async function signUpHandler(req: Request, res: Response) {
     }
 
     // create a new user
-    await createUser({ name, email, password });
+    const { _id } = await createUser({ name, email, password });
 
-    return res.status(StatusCodes.CREATED).end();
+    // generate accessToken
+    const payload: Payload = {
+      _id,
+      email,
+      name,
+    };
+    const accessToken = signAccessToken(payload);
+
+    return res
+      .status(StatusCodes.CREATED)
+      .cookie('accessToken', accessToken, {
+        expires: new Date(Date.now() + ONE_DAY),
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+      })
+      .end();
   } catch (e) {
     console.log(e);
 
