@@ -13,3 +13,13 @@ export function signAccessToken(payload: Payload): string {
     expiresIn: ONE_DAY,
   });
 }
+
+export function verifyToken(token: string): Payload | null {
+  try {
+    const payload: Payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    return payload;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
