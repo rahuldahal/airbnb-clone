@@ -27,6 +27,13 @@ UserSchema.pre('save', async function (next) {
   }
 });
 
+UserSchema.methods.validatePassword = async function (
+  password: string,
+  hashedPassword: string
+): Promise<boolean> {
+  return await bcryptjs.compare(password, hashedPassword);
+};
+
 UserSchema.methods.doesEmailExist = async function (value: string) {
   return await this.constructor.findOne({ email: value }).select('+password');
 };
