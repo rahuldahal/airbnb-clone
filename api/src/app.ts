@@ -1,3 +1,4 @@
+import cors from 'cors';
 import userRouter from './routers/user';
 import cookieParser from 'cookie-parser';
 import placeRouter from './routers/place';
@@ -8,6 +9,7 @@ import express, { Request, Response } from 'express';
 
 const app = express(); // initialize the express 'app'
 
+app.use(cors()); // allow Cross-Origin Resource Sharing
 app.use(express.json());
 app.use(cookieParser());
 
