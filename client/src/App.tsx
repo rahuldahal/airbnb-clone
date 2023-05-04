@@ -5,19 +5,22 @@ import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import Layout from './components/Layout';
 import { Route, Routes } from 'react-router-dom';
+import { UserContextProvider } from './Contexts/UserContext';
 
 axios.defaults.baseURL = 'http://localhost:8888';
 axios.defaults.withCredentials = true;
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="/" element={<IndexPage />} />
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-      </Route>
-    </Routes>
+    <UserContextProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<IndexPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+        </Route>
+      </Routes>
+    </UserContextProvider>
   );
 }
 

@@ -39,7 +39,13 @@ export async function signUpHandler(req: Request, res: Response) {
         sameSite: 'none',
         secure: true,
       })
-      .end();
+      .json({
+        message: {
+          _id,
+          email,
+          name,
+        },
+      });
   } catch (e) {
     console.log(e);
 
@@ -113,5 +119,11 @@ export async function signInHandler(req: Request, res: Response) {
       sameSite: 'none',
       secure: true,
     })
-    .end();
+    .json({
+      message: {
+        _id,
+        email,
+        name,
+      },
+    });
 }

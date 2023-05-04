@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { User, UserContext } from '../Contexts/UserContext';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -8,14 +9,23 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
 
+  const { setUser } = useContext(UserContext);
+
   async function signUpHandler(e: React.FormEvent) {
     e.preventDefault();
     try {
-      await axios.post('/user', {
+      const { data } = await axios.post('/user', {
         name,
         email,
         password,
       });
+
+      const user: User = {
+        _id: data.message._id,
+        email: data.message.email,
+        name: data.message.name,
+      };
+      setUser(user);
       alert('Registration successful. Now you can log in');
       setRedirect(true);
     } catch (e) {
