@@ -49,7 +49,7 @@ export default function Header(): JSX.Element {
           </button>
         </div>
         <Link
-          to="/signin"
+          to={user ? '/account' : '/signin'}
           className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4"
         >
           <svg

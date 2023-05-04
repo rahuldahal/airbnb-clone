@@ -4,6 +4,7 @@ import IndexPage from './pages/Index';
 import SignInPage from './pages/SignIn';
 import SignUpPage from './pages/SignUp';
 import Layout from './components/Layout';
+import AccountPage from './pages/Account';
 import { Route, Routes } from 'react-router-dom';
 import { UserContextProvider } from './Contexts/UserContext';
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<IndexPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/account" element={<AccountPage />} />
         </Route>
       </Routes>
     </UserContextProvider>
