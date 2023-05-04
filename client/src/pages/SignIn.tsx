@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +8,15 @@ export default function SignInPage(): JSX.Element {
 
   async function handleLoginSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log('Handle SignIn');
+    try {
+      await axios.post('/user/signIn', {
+        email,
+        password,
+      });
+      alert('Login successful.');
+    } catch (e) {
+      alert('Login failed.');
+    }
   }
 
   return (
