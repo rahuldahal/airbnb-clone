@@ -9,7 +9,11 @@ import express, { Request, Response } from 'express';
 
 const app = express(); // initialize the express 'app'
 
-app.use(cors()); // allow Cross-Origin Resource Sharing
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
+app.use(cors(corsConfig)); // allow Cross-Origin Resource Sharing
 app.use(express.json());
 app.use(cookieParser());
 

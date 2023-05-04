@@ -7,6 +7,7 @@ import Layout from './components/Layout';
 import { Route, Routes } from 'react-router-dom';
 
 axios.defaults.baseURL = 'http://localhost:8888';
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
