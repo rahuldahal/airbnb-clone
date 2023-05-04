@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 export default function SignInPage(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   async function handleLoginSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -14,9 +15,14 @@ export default function SignInPage(): JSX.Element {
         password,
       });
       alert('Login successful.');
+      setRedirect(true);
     } catch (e) {
       alert('Login failed.');
     }
+  }
+
+  if (redirect) {
+    return <Navigate to={'/'} />;
   }
 
   return (

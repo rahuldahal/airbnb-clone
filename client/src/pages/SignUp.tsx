@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   async function signUpHandler(e: React.FormEvent) {
     e.preventDefault();
@@ -16,9 +17,14 @@ export default function SignUp() {
         password,
       });
       alert('Registration successful. Now you can log in');
+      setRedirect(true);
     } catch (e) {
       alert('Registration failed. Please try again later');
     }
+  }
+
+  if (redirect) {
+    return <Navigate to={'/'} />;
   }
 
   return (
