@@ -1,14 +1,26 @@
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   async function signUpHandler(e: React.FormEvent) {
     e.preventDefault();
-    console.log('Handle Signup');
+    try {
+      await axios.post('/user', {
+        name,
+        email,
+        password,
+      });
+      alert('Registration successful. Now you can log in');
+    } catch (e) {
+      alert('Registration failed. Please try again later');
+    }
   }
+
   return (
     <div className="mt-4 grow flex items-center justify-around">
       <div className="mb-64">
