@@ -31,14 +31,14 @@ export function UserContextProvider({
   const [user, setUser] = useState<User | null>(null);
   const [ready, setReady] = useState(false);
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     axios.get<User>('/profile').then(({ data }) => {
-  //       setUser(data);
-  //       setReady(true);
-  //     });
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (!user) {
+      axios.get('/user').then(({ data }) => {
+        setUser(data.message);
+        setReady(true);
+      });
+    }
+  }, [user]);
 
   const value: UserContextProps = { user, setUser, ready };
 

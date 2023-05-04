@@ -127,3 +127,14 @@ export async function signInHandler(req: Request, res: Response) {
       },
     });
 }
+
+export async function profileHandler(req: Request, res: Response) {
+  const payload = req['payload'];
+  if (payload) {
+    res.status(StatusCodes.OK).json({
+      message: req['payload'],
+    });
+  } else {
+    res.status(StatusCodes.BAD_REQUEST).end();
+  }
+}
