@@ -1,17 +1,26 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountNav from '../components/AccountNav';
 import { UserContext } from '../Contexts/UserContext';
+import axios from 'axios';
 
 export default function AccountPage() {
-  const { ready, user } = useContext(UserContext);
+  const [redirect, setRedirect] = useState('');
 
-  if (!ready) {
-    return 'Loading...'; // TODO: add a loader UIs
+  const { ready, user, setUser } = useContext(UserContext);
+
+  async function logout() {
+    await axios.get('/user/logout');
+    setRedirect('/');
+    setUser(null);
   }
 
-  if (ready && !user) {
+  if (ready && !user && !redirect) {
     return <Navigate to={'/login'} />;
+  }
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
   }
 
   return (
@@ -20,10 +29,7 @@ export default function AccountPage() {
 
       <div className="text-center max-w-lg mx-auto">
         Logged in as {user?.name} ({user?.email})<br />
-        <button
-          onClick={() => console.log('handle logout')}
-          className="primary max-w-sm mt-2"
-        >
+        <button onClick={logout} className="primary max-w-sm mt-2">
           Logout
         </button>
       </div>

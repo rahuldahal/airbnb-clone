@@ -138,3 +138,7 @@ export async function profileHandler(req: Request, res: Response) {
     res.status(StatusCodes.BAD_REQUEST).end();
   }
 }
+
+export async function logoutHandler(req: Request, res: Response) {
+  res.status(StatusCodes.OK).cookie('accessToken', '').end();
+}
